@@ -1,11 +1,11 @@
 const {MongoClient} = require('mongodb');
 
 let dbConnection;
-
+let uri = 'mongodb://0.0.0.0:27017/movieBase';
 module.exports = {
     connectToDb: (cb) => {
-        MongoClient.connect('mongodb://0.0.0.0:27017/movieBase')
-            .then((client) => {
+        MongoClient.connect(uri)
+        .then((client) => {
                 dbConnection = client.db();
                 return cb();
             })
