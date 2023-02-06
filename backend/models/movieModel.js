@@ -11,13 +11,17 @@ const movieSchema = new Schema({
         type: String,
         required: true
     },
-    length: {
+    year: {
         type: Number,
         required: true
     },
+    length: {
+        type: Number,
+        // required: true
+    },
     rating: {
         type: Decimal128,
-        required: true
+        // required: true
     }
 }, {timestamps: true});
 

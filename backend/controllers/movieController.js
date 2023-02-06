@@ -22,9 +22,17 @@ const getMovie = async (req, res) => {
 
 //create new
 const createMovie = async (req, res) => {
-    const {title, director, length, rating} = req.body;
+    const {title, director, length, rating, year} = req.body;
+
+    let emptyFields = [];
+    if (!title) emptyFields.push('title');
+    if (!director) emptyFields.push('director');
+    if (!year) emptyFields.push('year');
+    if (emptyFields.length) return res.status(400).json({error: 'Please fill in all of the fields', emptyFields});
+
+
     try {
-        const movie = await Movie.create({title, director, length, rating});
+        const movie = await Movie.create({title, director, length, rating, year});
         res.status(200).json(movie)
     } catch(e) {
         res.status(400).json({error: e.message});

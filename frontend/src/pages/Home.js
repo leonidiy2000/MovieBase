@@ -1,18 +1,20 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useMoviesContext } from "../hooks/useMoviesContext";
 
 //components
 import MovieDetails from "../components/MovieDetails";
+import MovieForm from "../components/MovieForm";
 
 const Home = () => {
-    const [movies, setMovies] = useState(null);
+    const {movies, dispatch} = useMoviesContext();
     useEffect(() => {
         const fetchMovies = async () => {
             const response = await fetch('/api/movies');
             const json = await response.json();
-            if (response.ok) setMovies(json);
+            if (response.ok) dispatch({type: 'SET_MOVIES', payload: json})
         }
         fetchMovies();
-    }, []);
+    }, [dispatch]);
 
     return (
       <div className="home">
@@ -21,6 +23,7 @@ const Home = () => {
                 <MovieDetails key={movie._id} movie={movie} />
             ))}
         </div>
+        <MovieForm />
       </div>
     )
   }
